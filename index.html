@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Toolkit | Professional Tools for YouTube Creators</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        :root {
+            --primary: #FF0000;
+            --secondary: #282828;
+            --accent: #3498db;
+            --light: #f8f9fa;
+            --dark: #212121;
+            --success: #2ecc71;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--secondary), var(--dark));
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo i {
+            color: var(--primary);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1607863680198-23d4b2565df0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 5rem 1rem;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #cc0000;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tools-section {
+            padding: 5rem 0;
+            background-color: white;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .tool-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid #eee;
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tool-icon {
+            height: 150px;
+            background: linear-gradient(135deg, var(--primary), #ff6b6b);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
+        .tool-content {
+            padding: 25px;
+        }
+        
+        .tool-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .tool-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .tool-form {
+            margin-top: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+        
+        .btn-block {
+            display: block;
+            width: 100%;
+        }
+        
+        .results {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .results h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 1.3rem;
+        }
+        
+        .result-item {
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .thumbnail {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: block;
+        }
+        
+        .thumbnail-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .thumbnail-item {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+        }
+        
+        .thumbnail-item img {
+            max-width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #333;
+            border-radius: 50%;
+            color: white;
+            transition: background-color 0.3s;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .error {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                gap: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fab fa-youtube"></i>
+                    <span>YouTube Toolkit</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#video-download">Video Download</a></li>
+                        <li><a href="#trending-videos">Trending Videos</a></li>
+                        <li><a href="#trending-tags">Trending Tags</a></li>
+                        <li><a href="#thumbnail-download">Thumbnail Download</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Professional YouTube Tools</h1>
+            <p>Enhance your YouTube experience with our powerful toolkit. Download videos, analyze trends, find popular tags, and get thumbnails - all in one place.</p>
+            <a href="#tools" class="btn">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Tools Section -->
+    <section class="tools-section" id="tools">
+        <div class="container">
+            <div class="section-title">
+                <h2>YouTube Toolkit</h2>
+                <p>Powerful tools to help you grow your YouTube channel and analyze content</p>
+            </div>
+
+            <!-- Video Download Tool -->
+            <div class="tools-grid">
+                <div class="tool-card" id="video-download">
+                    <div class="tool-icon">
+                        <i class="fas fa-download"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>YouTube Video Downloader</h3>
+                        <p>Download any YouTube video in multiple formats and resolutions</p>
+                        <div class="tool-form">
+                            <div class="form-group">
+                                <label for="video-url">YouTube Video URL</label>
+                                <input type="text" id="video-url" class="form-control" placeholder="https://www.youtube.com/watch?v=...">
+                            </div>
+                            <button class="btn btn-block" onclick="getVideoInfo()">Get Download Options</button>
+                            <div class="loading" id="video-loading">
+                                <div class="spinner"></div>
+                                <p>Fetching video information...</p>
+                            </div>
+                            <div class="error" id="video-error"></div>
+                            <div class="results" id="video-results">
+                                <h3>Download Options</h3>
+                                <div class="result-item">
+                                    <p><strong>Title:</strong> <span id="video-title"></span></p>
+                                    <p><strong>Duration:</strong> <span id="video-duration"></span></p>
+                                    <div id="download-options"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trending Videos -->
+                <div class="tool-card" id="trending-videos">
+                    <div class="tool-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Trending Videos</h3>
+                        <p>Discover the most popular videos on YouTube right now</p>
+                        <div class="tool-form">
+                            <div class="form-group">
+                                <label for="region">Select Region</label>
+                                <select id="region" class="form-control">
+                                    <option value="US">United States</option>
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="IN">India</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="FR">France</option>
+                                    <option value="JP">Japan</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-block" onclick="getTrendingVideos()">Get Trending Videos</button>
+                            <div class="loading" id="trending-loading">
+                                <div class="spinner"></div>
+                                <p>Loading trending videos...</p>
+                            </div>
+                            <div class="error" id="trending-error"></div>
+                            <div class="results" id="trending-results">
+                                <h3>Currently Trending</h3>
+                                <div id="trending-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trending Tags -->
+                <div class="tool-card" id="trending-tags">
+                    <div class="tool-icon">
+                        <i class="fas fa-tags"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Trending Tags</h3>
+                        <p>Find the most popular tags for YouTube videos in your niche</p>
+                        <div class="tool-form">
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select id="category" class="form-control">
+                                    <option value="1">Film & Animation</option>
+                                    <option value="2">Autos & Vehicles</option>
+                                    <option value="10">Music</option>
+                                    <option value="15">Pets & Animals</option>
+                                    <option value="17">Sports</option>
+                                    <option value="20">Gaming</option>
+                                    <option value="22">People & Blogs</option>
+                                    <option value="23">Comedy</option>
+                                    <option value="24">Entertainment</option>
+                                    <option value="25">News & Politics</option>
+                                    <option value="26">Howto & Style</option>
+                                    <option value="27">Education</option>
+                                    <option value="28">Science & Technology</option>
+                                </select>
+                            </div>
+                            <button class="btn btn-block" onclick="getTrendingTags()">Get Trending Tags</button>
+                            <div class="loading" id="tags-loading">
+                                <div class="spinner"></div>
+                                <p>Analyzing popular tags...</p>
+                            </div>
+                            <div class="error" id="tags-error"></div>
+                            <div class="results" id="tags-results">
+                                <h3>Popular Tags</h3>
+                                <div id="tags-list"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Thumbnail Download -->
+                <div class="tool-card" id="thumbnail-download">
+                    <div class="tool-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <div class="tool-content">
+                        <h3>Thumbnail Downloader</h3>
+                        <p>Download thumbnails from any YouTube video in high resolution</p>
+                        <div class="tool-form">
+                            <div class="form-group">
+                                <label for="thumbnail-url">YouTube Video URL</label>
+                                <input type="text" id="thumbnail-url" class="form-control" placeholder="https://www.youtube.com/watch?v=...">
+                            </div>
+                            <button class="btn btn-block" onclick="getThumbnails()">Get Thumbnails</button>
+                            <div class="loading" id="thumbnail-loading">
+                                <div class="spinner"></div>
+                                <p>Fetching thumbnails...</p>
+                            </div>
+                            <div class="error" id="thumbnail-error"></div>
+                            <div class="results" id="thumbnail-results">
+                                <h3>Available Thumbnails</h3>
+                                <p><strong>Video Title:</strong> <span id="thumbnail-title"></span></p>
+                                <div class="thumbnail-container" id="thumbnail-container"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>YouTube Toolkit</h3>
+                    <p>Professional tools for YouTube creators and marketers. Enhance your channel with our powerful utilities.</p>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/profile.php?id=100083084710722"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://x.com/10BGAMERYT"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/abhiii_x.19?igsh=MW4xd2d2OW51M2o1"><i class="fab fa-instagram"></i></a>
+                        <a href="www.youtube.com/@10bgameryt"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="#video-download">Video Downloader</a></li>
+                        <li><a href="#trending-videos">Trending Videos</a></li>
+                        <li><a href="#trending-tags">Trending Tags</a></li>
+                        <li><a href="#thumbnail-download">Thumbnail Downloader</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Tutorials</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">API Status</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                        <li><a href="#">Copyright Info</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 YouTube Toolkit. All rights reserved. This is a demo project for educational purposes.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // YouTube API Key
+        const API_KEY = 'AIzaSyD7nBBr1fufv041Juub5zCTQ0FAyBMerbo';
+        
+        // Extract video ID from URL
+        function extractVideoId(url) {
+            const regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+        
+        // Show loading spinner
+        function showLoading(elementId) {
+            document.getElementById(elementId).style.display = 'block';
+        }
+        
+        // Hide loading spinner
+        function hideLoading(elementId) {
+            document.getElementById(elementId).style.display = 'none';
+        }
+        
+        // Show error message
+        function showError(elementId, message) {
+            const errorElement = document.getElementById(elementId);
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        // Hide error message
+        function hideError(elementId) {
+            document.getElementById(elementId).style.display = 'none';
+        }
+        
+        // Show results container
+        function showResults(elementId) {
+            document.getElementById(elementId).style.display = 'block';
+        }
+        
+        // Video Download Tool
+        async function getVideoInfo() {
+            const videoUrl = document.getElementById('video-url').value.trim();
+            const videoId = extractVideoId(videoUrl);
+            
+            if (!videoId) {
+                showError('video-error', 'Please enter a valid YouTube URL');
+                return;
+            }
+            
+            hideError('video-error');
+            showLoading('video-loading');
+            
+            try {
+                const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet,contentDetails&id=${videoId}&key=${API_KEY}`);
+                const data = await response.json();
+                
+                if (data.items && data.items.length > 0) {
+                    const video = data.items[0];
+                    const title = video.snippet.title;
+                    const duration = video.contentDetails.duration.replace('PT', '').toLowerCase();
+                    
+                    document.getElementById('video-title').textContent = title;
+                    document.getElementById('video-duration').textContent = duration;
+                    
+                    // Mock download options (actual download would require backend)
+                    const options = `
+                        <p><strong>Available Formats:</strong></p>
+                        <ul>
+                            <li>MP4 720p <a href="#" class="btn" style="padding:5px 10px;font-size:0.9rem;">Download</a></li>
+                            <li>MP4 480p <a href="#" class="btn" style="padding:5px 10px;font-size:0.9rem;">Download</a></li>
+                            <li>MP4 360p <a href="#" class="btn" style="padding:5px 10px;font-size:0.9rem;">Download</a></li>
+                            <li>MP3 Audio <a href="#" class="btn" style="padding:5px 10px;font-size:0.9rem;">Download</a></li>
+                        </ul>
+                    `;
+                    
+                    document.getElementById('download-options').innerHTML = options;
+                    showResults('video-results');
+                } else {
+                    showError('video-error', 'Video not found. Please check the URL.');
+                }
+            } catch (error) {
+                showError('video-error', 'Failed to fetch video information. Please try again.');
+                console.error('Error fetching video info:', error);
+            } finally {
+                hideLoading('video-loading');
+            }
+        }
+        
+        // Trending Videos Tool
+        async function getTrendingVideos() {
+            const region = document.getElementById('region').value;
+            showLoading('trending-loading');
+            hideError('trending-error');
+            
+            try {
+                const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&chart=mostPopular&regionCode=${region}&maxResults=10&key=${API_KEY}`);
+                const data = await response.json();
+                
+                if (data.items && data.items.length > 0) {
+                    let videosHtml = '';
+                    data.items.forEach(video => {
+                        const title = video.snippet.title;
+                        const channel = video.snippet.channelTitle;
+                        const thumbnail = video.snippet.thumbnails.medium.url;
+                        const videoId = video.id;
+                        
+                        videosHtml += `
+                            <div class="result-item">
+                                <img src="${thumbnail}" alt="${title}" class="thumbnail">
+                                <p><strong>${title}</strong></p>
+                                <p>Channel: ${channel}</p>
+                                <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" class="btn" style="padding:5px 15px;margin-top:10px;display:inline-block;">Watch Video</a>
+                            </div>
+                        `;
+                    });
+                    
+                    document.getElementById('trending-list').innerHTML = videosHtml;
+                    showResults('trending-results');
+                } else {
+                    showError('trending-error', 'No trending videos found for this region.');
+                }
+            } catch (error) {
+                showError('trending-error', 'Failed to fetch trending videos. Please try again.');
+                console.error('Error fetching trending videos:', error);
+            } finally {
+                hideLoading('trending-loading');
+            }
+        }
+        
+        // Trending Tags Tool
+        async function getTrendingTags() {
+            const categoryId = document.getElementById('category').value;
+            showLoading('tags-loading');
+            hideError('tags-error');
+            
+            try {
+                // In a real implementation, we would fetch videos in this category and analyze tags
+                // For demo purposes, we'll show mock tags based on category
+                const mockTags = {
+                    '1': ['film making', 'animation tutorial', 'cinematography', 'short film', 'stop motion'],
+                    '2': ['car review', 'electric vehicles', 'car modification', 'driving test', 'supercars'],
+                    '10': ['new music', 'song cover', 'music video', 'behind the scenes', 'live performance'],
+                    '15': ['cute animals', 'pet training', 'animal rescue', 'wildlife', 'pet care'],
+                    '17': ['sports highlights', 'athlete interview', 'training tips', 'game analysis', 'sports news'],
+                    '20': ['game review', 'walkthrough', 'gaming setup', 'esports', 'game trailer'],
+                    '22': ['vlog', 'day in my life', 'travel vlog', 'personal story', 'challenge'],
+                    '23': ['skit', 'stand up comedy', 'funny moments', 'prank', 'comedy special'],
+                    '24': ['celebrity news', 'movie review', 'red carpet', 'entertainment news', 'award show'],
+                    '25': ['breaking news', 'political analysis', 'election coverage', 'international news', 'debate'],
+                    '26': ['tutorial', 'DIY', 'cooking recipe', 'beauty tutorial', 'life hacks'],
+                    '27': ['online course', 'study tips', 'science experiment', 'history lesson', 'educational'],
+                    '28': ['tech review', 'science news', 'coding tutorial', 'innovation', 'space exploration']
+                };
+                
+                const tags = mockTags[categoryId] || ['viral', 'trending', 'popular', 'must watch', 'new'];
+                
+                let tagsHtml = '<div class="tags-container">';
+                tags.forEach(tag => {
+                    tagsHtml += `<span class="tag" style="display:inline-block;background:#e0e0e0;padding:5px 10px;border-radius:20px;margin:0 5px 5px 0;">#${tag}</span>`;
+                });
+                tagsHtml += '</div>';
+                
+                document.getElementById('tags-list').innerHTML = tagsHtml;
+                showResults('tags-results');
+            } catch (error) {
+                showError('tags-error', 'Failed to fetch trending tags. Please try again.');
+                console.error('Error fetching trending tags:', error);
+            } finally {
+                hideLoading('tags-loading');
+            }
+        }
+        
+        // Thumbnail Download Tool
+        async function getThumbnails() {
+            const videoUrl = document.getElementById('thumbnail-url').value.trim();
+            const videoId = extractVideoId(videoUrl);
+            
+            if (!videoId) {
+                showError('thumbnail-error', 'Please enter a valid YouTube URL');
+                return;
+            }
+            
+            hideError('thumbnail-error');
+            showLoading('thumbnail-loading');
+            
+            try {
+                const response = await fetch(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${API_KEY}`);
+                const data = await response.json();
+                
+                if (data.items && data.items.length > 0) {
+                    const video = data.items[0];
+                    const title = video.snippet.title;
+                    const thumbnails = video.snippet.thumbnails;
+                    
+                    document.getElementById('thumbnail-title').textContent = title;
+                    
+                    let thumbnailsHtml = '';
+                    
+                    // Standard quality
+                    if (thumbnails.standard) {
+                        thumbnailsHtml += `
+                            <div class="thumbnail-item">
+                                <img src="${thumbnails.standard.url}" alt="Standard Quality">
+                                <p>Standard Quality (640x480)</p>
+                                <a href="${thumbnails.standard.url}" download class="btn" style="padding:5px 15px;">Download</a>
+                            </div>
+                        `;
+                    }
+                    
+                    // High quality
+                    if (thumbnails.high) {
+                        thumbnailsHtml += `
+                            <div class="thumbnail-item">
+                                <img src="${thumbnails.high.url}" alt="High Quality">
+                                <p>High Quality (480x360)</p>
+                                <a href="${thumbnails.high.url}" download class="btn" style="padding:5px 15px;">Download</a>
+                            </div>
+                        `;
+                    }
+                    
+                    // Max resolution
+                    if (thumbnails.maxres) {
+                        thumbnailsHtml += `
+                            <div class="thumbnail-item">
+                                <img src="${thumbnails.maxres.url}" alt="Max Resolution">
+                                <p>Max Resolution (1280x720)</p>
+                                <a href="${thumbnails.maxres.url}" download class="btn" style="padding:5px 15px;">Download</a>
+                            </div>
+                        `;
+                    }
+                    
+                    // Default
+                    if (thumbnails.default) {
+                        thumbnailsHtml += `
+                            <div class="thumbnail-item">
+                                <img src="${thumbnails.default.url}" alt="Default">
+                                <p>Default (120x90)</p>
+                                <a href="${thumbnails.default.url}" download class="btn" style="padding:5px 15px;">Download</a>
+                            </div>
+                        `;
+                    }
+                    
+                    document.getElementById('thumbnail-container').innerHTML = thumbnailsHtml;
+                    showResults('thumbnail-results');
+                } else {
+                    showError('thumbnail-error', 'Video not found. Please check the URL.');
+                }
+            } catch (error) {
+                showError('thumbnail-error', 'Failed to fetch thumbnails. Please try again.');
+                console.error('Error fetching thumbnails:', error);
+            } finally {
+                hideLoading('thumbnail-loading');
+            }
+        }
+        
+        // Initialize the page with some trending videos
+        window.onload = function() {
+            getTrendingVideos();
+        };
+    </script>
+    <script type="text/javascript">
+	      atOptions = {
+		'key' : '523b5bf205602c67e74f801ce3dd4f5c',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	    };
+        </script>
+        <script type="text/javascript" src="//nodthunderthis.com/523b5bf205602c67e74f801ce3dd4f5c/invoke.js"></script>
+        <script type='text/javascript' src='//nodthunderthis.com/bf/8f/6d/bf8f6de213c0789dba82bac97e41124d.js'></script>
+        <script type='text/javascript' src='//nodthunderthis.com/94/ea/a9/94eaa92642e137bfef791d477d335ca5.js'></script>
+</body>
+</html>
